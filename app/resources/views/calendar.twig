@@ -1,0 +1,29 @@
+{% extends "templates/base.twig" %}
+
+{% block style %}
+    <link rel="stylesheet" href="/css/vanilla-calendar.min.css">
+{% endblock %}
+
+{% block content %}
+    <div class="container bg-body-tertiary border-bottom rounded-bottom">
+        <h2 class="text-center">Укажите дату за выбранный период</h2>
+        <div class="row pt-2">
+            <div class="col-lg-12 align-content-center align-content-lg-center">
+                <div id="calendar" class="position-relative top-50 start-50 translate-middle"></div>
+            </div>
+            <div class="col-lg-6">
+                <input type="hidden" name="calendar_point" id="calendar_point">
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="/js/axios.min.js"></script>
+    <script src="/js/vanilla-calendar.min.js"></script>
+    <script src="/js/main.js"></script>
+{% endblock %}
+
+{#        <pre>#}
+{#        {{ dump(request.Server.HOSTNAME) }}#}
+{#        </pre>#}

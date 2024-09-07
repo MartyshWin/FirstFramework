@@ -1,0 +1,67 @@
+{% extends "templates/base.twig" %}
+
+{% block style %}
+    <link rel="stylesheet" href="/css/vanilla-calendar.min.css">
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-3 bg-body-tertiary border-bottom rounded">
+        <h2 class="text-center">Укажите дату за выбранный период</h2>
+        <div class="row pt-2">
+            <div class="col-lg-12 align-content-center align-content-lg-center">
+                <div id="calendar" class="position-relative top-50 start-50 translate-middle"></div>
+            </div>
+            <div class="col-lg-6">
+                <input type="hidden" name="calendar_point" id="calendar_point">
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="/js/axios.min.js"></script>
+    <script src="/js/vanilla-calendar.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script>
+        function calendarPoint() {
+            axios({
+                method: 'post',
+                url: '/search/date',
+                data: {
+                    start: $('#calendar_point').attr('start-date'),
+                    end: $('#calendar_point').attr('end-date')
+                }
+            }).then(response => {
+                console.log(JSON.stringify(response.data));
+            });
+        }
+
+        const options = {
+            settings: {
+                selection: {
+                    day: 'multiple-ranged',
+                },
+            },
+            actions: {
+                clickDay(event, self) {
+                    // console.log(self.selectedDates);
+                    $('#calendar_point').attr('start-date',self.selectedDates.at(0));
+                    $('#calendar_point').attr('end-date', '');
+                    if (self.selectedDates.at(0) !== self.selectedDates.at(-1)) {
+                        $('#calendar_point').attr('end-date',self.selectedDates.at(-1));
+                        calendarPoint();
+                    }
+                    console.log(self.selectedDates.at(-1));
+                },
+            },
+
+        };
+
+        const calendar = new VanillaCalendar('#calendar', options);
+        calendar.init();
+    </script>
+{% endblock %}
+
+{#        <pre>#}
+{#        {{ dump(request.Server.HOSTNAME) }}#}
+{#        </pre>#}

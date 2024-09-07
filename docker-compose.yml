@@ -1,0 +1,65 @@
+#version: '3'
+
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "${APP_PORT}:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./app/:/var/www/html/
+    depends_on:
+      - php
+      - mysql
+    networks:
+      - app-network
+
+  php:
+    image: nanoninja/php-fpm:8.1
+    restart: always
+    volumes:
+      - ./app/:/var/www/html
+    networks:
+      - app-network
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "${DB_PORT}:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - app-network
+
+#  phpmyadmin:
+#    image: phpmyadmin/phpmyadmin
+#    environment:
+#      PMA_HOST: mysql
+#      PMA_PORT: 3306
+#    ports:
+#      - "${DB_CONTROL_PANEL_PORT}:80"
+#    networks:
+#      - app-network
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "${DB_CONTROL_PANEL_PORT}:8080"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql-data:

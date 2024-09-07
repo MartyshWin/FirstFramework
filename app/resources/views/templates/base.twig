@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru" data-bs-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    {% block style %}
+    {% endblock %}
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom rounded-bottom-3 shadow-sm ">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">MrGazeev</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+                        aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon menu_icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/">Главная</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Проекты</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Блог</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link">Обо мне</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="offcanvas" data-bs-target="#contant_canvas"
+                               aria-controls="contant_canvas">Контакты</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="modal" data-bs-target="#ContactMe">Связаться</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="theme"><i class="bi bi-brightness-high"></i></a>
+                            <!-- <i class="bi bi-moon"></i> -->
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="ContactMe" tabindex="-1" aria-labelledby="ContactMeLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="ContactMeLabel">Связаться со мной</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><a class="nav-link text-info" href="https://t.me/marat_gazeev"><i class="bi bi-telegram"></i>
+                                Telegram</a></p>
+                        <p><a class="nav-link" style="color: #7289DA;" href="https://discord.com/users/545981526484189187"><i
+                                        class="bi bi-discord"></i>
+                                Discord</a></p>
+                        <p><a class="nav-link text-success" href="mailto:maratgazeev0@gmail.com"><i class="bi bi-envelope-fill"></i>
+                                maratgazeev0@gmail.com</a></p>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+
+        <div class="offcanvas offcanvas-bottom" tabindex="-1" id="contant_canvas" aria-labelledby="ContantCanvasLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="ContantCanvasLabel">Контакты</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <p><a class="nav-link" href="https://t.me/marat_gazeev"><i class="bi bi-telegram"></i> Telegram</a></p>
+                <p><a class="nav-link" href="https://github.com/MartyshWin"><i class="bi bi-github"></i> GitHub</a></p>
+                <p><a class="nav-link" href="https://discord.com/users/545981526484189187"><i class="bi bi-discord"></i>
+                        Discord</a></p>
+                <p><a class="nav-link" href="https://www.codewars.com/users/Martysh"><i class="bi bi-link-45deg"></i>
+                        CodeWars</a></p>
+                <p><a class="nav-link" href="https://leetcode.com/u/MrGazeev/"><i class="bi bi-link-45deg"></i> LeetCode</a></p>
+            </div>
+        </div>
+    </div>
+    <script src="/js/jquery-3.7.1.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    {% block script %}
+    {% endblock %}
+</body>
+</html>
